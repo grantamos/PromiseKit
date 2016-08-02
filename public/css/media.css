@@ -4,7 +4,7 @@ html {
 body {
   padding: 2.5rem 0;
 }
-p, h1, h2, h3, ol, ul, aside, .indent, #masthead {
+p, h1, h2, h3, ol, ul, aside, .indent, #masthead, blockquote {
   margin-left: 16px;
   margin-right: 16px;
 }
@@ -62,7 +62,7 @@ pre {
 }
 
 @media (min-width: 320px) and (orientation: landscape) {
-  p, h1, h2, h3, ol, ul, aside, .indent, #masthead {
+  p, h1, h2, h3, ol, ul, aside, .indent, #masthead, blockquote {
     margin-left: 20px;
     margin-right: 20px;
   }
@@ -75,7 +75,7 @@ pre {
   html {
     font-size: 20px;
   }
-  p, h1, h2, h3, ol, ul, aside, .indent, #masthead {
+  p, h1, h2, h3, ol, ul, aside, .indent, #masthead, blockquote {
     max-width: 30rem;
     margin-left: auto;
     margin-right: auto;
@@ -104,7 +104,7 @@ pre {
   pre {
     min-width: 36rem;
   }
-  aside {
+  aside, blockquote {
     min-width: 34rem;
   }
   .contents {

@@ -15,6 +15,10 @@ redirect_from:
 
 # The Fundamentals of Promises
 
+> Documentation is for (not yet current) PromiseKit 4, sorry. Most things are
+> the same or very similar. Maintaining two sets of documentation is not
+> possible for this one-man band. Thank you for your patience.
+
 A promise is an object that represents an asynchronous task. Pass that object around, and write clean, ordered code; a logical, simple, modular stream of progression from one asynchronous task to another.
 
 `then` is like a completion-handler, but for promises:
@@ -100,12 +104,27 @@ firstly {
 }
 ```
 
+<aside>
+The above logic only continues if all promises succeed, if any promise fails
+then the when immediately stops and execution continues at the next <code>catch</code>.
+Thus we also provide <code>when(resolved:)</code>, which waits for all promises
+even if some fail. <b>Usually you want <code>when(fulfilled:)</code></b>.
+</aside>
+
+<br>
 Error handling in Cocoa is hard to do well, but promises make it easy, and they make what is normally tricky edge-case error handling easy too:
 
 ```swift
-CLLocationManager.promise().recover { error in
+CLLocationManager.promise().recover { error -> CLLocation in
+    
+    // `recover` allows you to recover from errors
+    // in this closure you can inspect the error and either
+    // throw the error again, thus rejecting the chain or
+    // instead return a valid value
+    
     guard error == CLLocationError.NotFound else { throw error }
     return CLLocation.chicago
+
 }.then { location in
     //…
 }.catch { error in
@@ -113,13 +132,13 @@ CLLocationManager.promise().recover { error in
 }
 ```
 
-PromiseKit has the concept of “cancellation” baked in. If the user cancels something then typically you don't want to continue a promise chain, but you don't want to show an error message either. So what is cancellation? It's not success and it's not failure, but it should handle more like an error, ie. it should skip all the subsequent `then` handlers. PromiseKit embodies cancellation as a special kind of error:
+PromiseKit has the concept of <b><i>cancellation</i></b> baked in. If the user cancels something then typically you don't want to continue a promise chain, but you don't want to show an error message either. So what is cancellation? It's not success and it's not failure, but it should handle more like an error, ie. it should skip all the subsequent `then` handlers. PromiseKit embodies cancellation as a special kind of error:
 
 ```swift
 firstly {
     UIApplication.shared.networkActivityIndicatorVisible = true
 }.then {
-    CLLocationManager.promise()
+    return CLLocationManager.promise()
 }.then { location in
     let alert = UIAlertView()
     alert.addButton(title: "Proceed!")
@@ -160,3 +179,9 @@ directionsPromise.then { print(2) }
 ```
 
 The closures you pass are executed in order — once the directions have come back from Apple’s servers.
+
+## Further Reading
+
+* https://littlebitesofcocoa.com/13-promisekit
+* https://medium.com/the-traveled-ios-developers-guide/making-promises-417f13da901f
+* http://samwize.com/2015/04/17/guide-to-using-promisekit/
