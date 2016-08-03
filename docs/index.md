@@ -182,6 +182,6 @@ The closures you pass are executed in order — once the directions have come ba
 
 ## Further Reading
 
-* https://littlebitesofcocoa.com/13-promisekit
-* https://medium.com/the-traveled-ios-developers-guide/making-promises-417f13da901f
-* http://samwize.com/2015/04/17/guide-to-using-promisekit/
+* [https://littlebitesofcocoa.com/13-promisekit]()
+* [https://medium.com/the-traveled-ios-developers-guide/making-promises-417f13da901f]()
+* [http://samwize.com/2015/04/17/guide-to-using-promisekit/]()
